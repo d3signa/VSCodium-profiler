@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+    <kcfgfile name=""/>
+    <group name="General">
+        <entry name="iconSource" type="String">
+            <label>Icon used in the panel and in the popup header</label>
+            <default>file:///home/ftristan/Scripts/VSProfiler/icons/codium_light.png</default>
+        </entry>
+        <entry name="editor" type="String">
+            <label>Editor whose profiles are shown: vscodium or vscode</label>
+            <default>vscodium</default>
+        </entry>
+    </group>
+</kcfg>

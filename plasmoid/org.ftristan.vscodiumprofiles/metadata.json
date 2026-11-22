@@ -1,0 +1,20 @@
+{
+    "KPackageStructure": "Plasma/Applet",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "ftristan"
+            }
+        ],
+        "Category": "Utilities",
+        "Description": "Pick a VSCodium profile and open a window",
+        "FormFactors": [
+            "desktop"
+        ],
+        "Icon": "vscodium",
+        "Id": "org.ftristan.vscodiumprofiles",
+        "License": "MIT",
+        "Name": "VSCodium Profiles"
+    },
+    "X-Plasma-API-Minimum-Version": "6.0"
+}
