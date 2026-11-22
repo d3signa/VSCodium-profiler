@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=VSCodium (choose profile)
+Comment=Select a VSCodium profile before opening
+GenericName=Text Editor
+Exec=/home/ftristan/Scripts/VSProfiler/vscodium-profile.sh %F
+Icon=vscodium
+Type=Application
+Terminal=false
+StartupNotify=false
+StartupWMClass=VSCodium
+Categories=Development;IDE;
+MimeType=text/plain;inode/directory;application/x-codium-workspace;
+Keywords=vscodium;codium;vscode;profile;
