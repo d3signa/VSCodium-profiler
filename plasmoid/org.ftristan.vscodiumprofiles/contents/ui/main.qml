@@ -16,11 +16,11 @@ import org.kde.plasma.plasma5support 2.0 as P5Support
 PlasmoidItem {
     id: root
 
-    // Path to the helper script that discovers and launches profiles.
-    property string helper: "/home/ftristan/Scripts/VSProfiler/vscodium-profile.sh"
+    // Helper and icons are bundled inside the plasmoid package.
+    property string helper: resolveHelper()
     property var profiles: []
     property string lastProfile: "Default"
-    property string iconSource: plasmoid.configuration.iconSource || "vscodium"
+    property string iconSource: resolveIconSource(plasmoid.configuration.iconSource || "../icons/codium_light.png")
     property string editor: plasmoid.configuration.editor || "vscodium"
     // Plasmoid.icon only accepts theme icon names, so keep a valid fallback for
     // file-based icons while the custom compact representation shows the real image.
@@ -37,7 +37,53 @@ PlasmoidItem {
     Layout.minimumWidth: Kirigami.Units.gridUnit * 12
     Layout.minimumHeight: Kirigami.Units.gridUnit * 10
 
+    preferredRepresentation: compactRepresentation
     Plasmoid.icon: root.appletIconName
+
+    function fileUrlToPath(url) {
+        var value = String(url || "");
+        if (value.indexOf("file://") === 0) {
+            value = value.substring(7);
+        }
+        return decodeURIComponent(value);
+    }
+
+    function resolveHelper() {
+        var path = "";
+        if (typeof Plasmoid.file === "function") {
+            path = Plasmoid.file("ui", "vscodium-profile.sh");
+        }
+        if (!path) {
+            path = fileUrlToPath(Qt.resolvedUrl("vscodium-profile.sh"));
+        }
+        return path;
+    }
+
+    function resolveIconSource(source) {
+        var value = String(source || "");
+        if (value.indexOf("../icons/") === 0 || value.indexOf("icons/") === 0) {
+            return Qt.resolvedUrl(value).toString();
+        }
+        // Migrate old absolute default icon paths to the bundled copy so the
+        // package keeps working even before the saved config is rewritten.
+        var name = value.split("/").pop();
+        if ((value.indexOf("/") === 0 || value.indexOf("file://") === 0)
+            && (name === "codium_light.png" || name === "codium_dark.png")) {
+            return Qt.resolvedUrl("../icons/" + name).toString();
+        }
+        return value;
+    }
+
+    function migrateIconSource() {
+        var value = String(plasmoid.configuration.iconSource || "");
+        if (value.indexOf("/") === -1 && value.indexOf("file://") !== 0) {
+            return;
+        }
+        var name = value.split("/").pop();
+        if (name === "codium_light.png" || name === "codium_dark.png") {
+            plasmoid.configuration.iconSource = "../icons/" + name;
+        }
+    }
 
     function isFileIcon(source) {
         var value = String(source || "");
@@ -114,7 +160,10 @@ PlasmoidItem {
         onTriggered: refresh()
     }
 
-    Component.onCompleted: refresh()
+    Component.onCompleted: {
+        migrateIconSource();
+        refresh();
+    }
 
     Connections {
         target: plasmoid.configuration

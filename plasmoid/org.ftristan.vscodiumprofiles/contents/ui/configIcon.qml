@@ -28,7 +28,7 @@ ColumnLayout {
 
     FolderListModel {
         id: iconsModel
-        folder: "file:///home/ftristan/Scripts/VSProfiler/icons"
+        folder: Qt.resolvedUrl("../icons")
         nameFilters: ["*.png", "*.svg"]
         showDirs: false
         sortField: FolderListModel.Name
@@ -58,8 +58,9 @@ ColumnLayout {
             delegate: PlasmaComponents3.ToolButton {
                 Layout.preferredWidth: Kirigami.Units.gridUnit * 5
                 Layout.preferredHeight: Kirigami.Units.gridUnit * 5
-                checked: plasmoid.configuration.iconSource === String(model.fileUrl)
-                onClicked: plasmoid.configuration.iconSource = String(model.fileUrl)
+                checked: plasmoid.configuration.iconSource === "../icons/" + model.fileName
+                         || plasmoid.configuration.iconSource === String(model.fileUrl)
+                onClicked: plasmoid.configuration.iconSource = "../icons/" + model.fileName
 
                 contentItem: Column {
                     spacing: Kirigami.Units.smallSpacing

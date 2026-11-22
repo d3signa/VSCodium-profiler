@@ -7,7 +7,7 @@
     <group name="General">
         <entry name="iconSource" type="String">
             <label>Icon used in the panel and in the popup header</label>
-            <default>file:///home/ftristan/Scripts/VSProfiler/icons/codium_light.png</default>
+            <default>../icons/codium_light.png</default>
         </entry>
         <entry name="editor" type="String">
             <label>Editor whose profiles are shown: vscodium or vscode</label>
