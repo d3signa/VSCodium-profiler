@@ -60,13 +60,13 @@ chmod +x vscodium-profile.sh
 Install the plasmoid:
 
 ```bash
-kpackagetool6 --type Plasma/Applet --install plasmoid/org.ftristan.vscodiumprofiles
+kpackagetool6 --type Plasma/Applet --install plasmoid/org.d3signa.vscodiumprofiles
 ```
 
 If it is already installed, upgrade it instead:
 
 ```bash
-kpackagetool6 --type Plasma/Applet --upgrade plasmoid/org.ftristan.vscodiumprofiles
+kpackagetool6 --type Plasma/Applet --upgrade plasmoid/org.d3signa.vscodiumprofiles
 ```
 
 Optional: install the desktop launcher so the picker can be started from the applications menu:
@@ -80,8 +80,8 @@ update-desktop-database ~/.local/share/applications 2>/dev/null || true
 
 The plasmoid bundles its helper script and default icons inside the package, so it does not depend on where this repository is cloned.
 
-- Bundled helper: `plasmoid/org.ftristan.vscodiumprofiles/contents/ui/vscodium-profile.sh`
-- Bundled icons: `plasmoid/org.ftristan.vscodiumprofiles/contents/icons/`
+- Bundled helper: `plasmoid/org.d3signa.vscodiumprofiles/contents/ui/vscodium-profile.sh`
+- Bundled icons: `plasmoid/org.d3signa.vscodiumprofiles/contents/icons/`
 
 The repo-root `vscodium-profile.sh` is kept for command-line and desktop-launcher use. If you change the helper, update both copies; they must stay identical.
 

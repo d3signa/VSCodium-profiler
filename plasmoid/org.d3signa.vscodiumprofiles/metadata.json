@@ -12,7 +12,7 @@
             "desktop"
         ],
         "Icon": "vscodium",
-        "Id": "org.ftristan.vscodiumprofiles",
+        "Id": "org.d3signa.vscodiumprofiles",
         "License": "MIT",
         "Name": "VSCodium Profiles"
     },
