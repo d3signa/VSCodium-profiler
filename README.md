@@ -49,31 +49,48 @@ Appearance configuration page:
 
 ## Installation
 
-Clone the repository and make the helper executable:
+Clone the repository:
 
 ```bash
 git clone git@github.com:d3signa/VSCodium-profiler.git
 cd VSCodium-profiler
+```
+
+Run the installer:
+
+```bash
+./install.sh
+```
+
+It installs or upgrades the plasmoid, copies the helper to `~/.local/bin/vscodium-profile.sh`, and installs the desktop launcher with an `Exec=` path pointing to that copied helper.
+
+### Manual installation
+
+Make the helper executable:
+
+```bash
 chmod +x vscodium-profile.sh
 ```
 
-Install the plasmoid:
+Install or upgrade the plasmoid:
 
 ```bash
 kpackagetool6 --type Plasma/Applet --install plasmoid/org.d3signa.vscodiumprofiles
-```
-
-If it is already installed, upgrade it instead:
-
-```bash
+# or, if already installed:
 kpackagetool6 --type Plasma/Applet --upgrade plasmoid/org.d3signa.vscodiumprofiles
 ```
 
-Optional: install the desktop launcher so the picker can be started from the applications menu:
+Install the desktop launcher manually:
 
 ```bash
 cp vscodium-profile.desktop ~/.local/share/applications/
 update-desktop-database ~/.local/share/applications 2>/dev/null || true
+```
+
+If you copy the launcher manually, edit its `Exec=` line to point to the installed helper, for example:
+
+```ini
+Exec=/home/you/.local/bin/vscodium-profile.sh %F
 ```
 
 ### Self-contained plasmoid
@@ -83,9 +100,17 @@ The plasmoid bundles its helper script and default icons inside the package, so 
 - Bundled helper: `plasmoid/org.d3signa.vscodiumprofiles/contents/ui/vscodium-profile.sh`
 - Bundled icons: `plasmoid/org.d3signa.vscodiumprofiles/contents/icons/`
 
-The repo-root `vscodium-profile.sh` is kept for command-line and desktop-launcher use. If you change the helper, update both copies; they must stay identical.
+The repo-root `vscodium-profile.sh` is kept for command-line use and as the source for `~/.local/bin`. If you change the helper, update both copies; they must stay identical.
 
-Only `vscodium-profile.desktop` contains an absolute `Exec=` path for this machine. Edit it if you install the repository somewhere other than `~/Scripts/VSProfiler`.
+Only the repository copy of `vscodium-profile.desktop` contains the original absolute `Exec=` path. `install.sh` rewrites it to use `~/.local/bin/vscodium-profile.sh` in the installed launcher.
+
+### Uninstall
+
+```bash
+./uninstall.sh
+```
+
+This removes the plasmoid, `~/.local/bin/vscodium-profile.sh`, and `~/.local/share/applications/vscodium-profile.desktop`.
 
 ## Usage
 
